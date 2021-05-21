@@ -9,6 +9,8 @@ import api from "./api";
 // axios
 var axios = require('axios')
 axios.defaults.baseURL = 'http://localhost:8081/api'
+axios.defaults.withCredentials = true
+
 Vue.prototype.$axios = axios
 
 // element-ui
@@ -18,22 +20,35 @@ Vue.use(ElementUI)
 Vue.prototype.$api = api
 Vue.config.productionTip = false
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
-    if (store.state.user.username){
-      next() // 放行
-    } else {
-      next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath
-        }
-      })
-    }
-  } else {
-    next() // 不需要登录 放行
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requireAuth) {
+//     if (store.state.user) {
+//       axios.get('/user/authentication').then(resp => {
+//         if (resp.data) {
+//             next()
+//         } else {
+//             next({
+//                 path:"login",
+//                 query:{
+//                     redirect: to.fullPath
+//                 }
+//             })
+//         }
+//       })
+//     } else {
+//       next({
+//         path: 'login',
+//         query: {
+//             redirect: to.fullPath
+//         }
+//       })
+//     }
+//   } else {
+//     next()
+//   }
+// }
+// )
+
 
 new Vue({
   router,
