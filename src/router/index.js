@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+import Login from "../views/Login"
 
 Vue.use(VueRouter)
 
@@ -8,19 +9,107 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Login,
+    // component: () => import(/* webpackChunkName: "about" */ '../views/Index.vue'),
+    // meta: {
+    //   requireAuth: true
+    // }
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/index',
+    name: 'Index',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Index.vue'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('../views/user/Profile'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: () => import('../views/user/User'),
+    meta: {
+      requireAuth: true
+    }
+  },
+    // POST
+  {
+    path: '/postManage',
+    name: 'PostManage',
+    component: () => import('../views/post/PostManage'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/post',
+    name: 'Post',
+    component: () => import('../views/post/Post'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/create',
+    name: 'Create',
+    component: () => import('../views/post/Create'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/adoptManage',
+    name: 'AdoptManage',
+    component: () => import('../views/adopt/AdoptManage'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/applyManage',
+    name: 'ApplyManage',
+    component: () => import('../views/adopt/ApplyManage'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/timeline',
+    name: 'Timeline',
+    component: () => import('../views/adopt/Timeline'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/message',
+    name: 'Message',
+    component: () => import('../views/user/Message'),
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
