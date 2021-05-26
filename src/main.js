@@ -2,16 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+
 import api from "./api";
-// import { regionDataPlus, CodeToText, TextToCode } from 'element-china-area-data'
 
 // axios
 var axios = require('axios')
 axios.defaults.baseURL = 'http://localhost:8081/api'
 axios.defaults.withCredentials = true
-
 Vue.prototype.$axios = axios
 
 // element-ui
@@ -19,6 +19,7 @@ Vue.use(ElementUI)
 
 // api
 Vue.prototype.$api = api
+
 Vue.config.productionTip = false
 
 

@@ -54,9 +54,12 @@
             <!-- 按钮 -->
             <div class="button" style="text-align: right; margin-top: 20px">
               <el-button @click="chat"  style="background-color: #efc239; border-color: #efc239; color: black; font-weight: bold">聊天</el-button>
-              <el-button @click="adopt"  style="background-color: #efc239; border-color: #efc239; color: black; font-weight: bold" v-if="isApplying===0">领养</el-button>
+              <el-button @click="adopt"
+                         style="background-color: #efc239; border-color: #efc239; color: black; font-weight: bold" v-if="relation===1">领养</el-button>
               <el-button @click="adopt" disabled
-                         style="background-color: black; border-color: black; color: #efc239;font-weight: bold" v-if="isApplying===1">已发送申请</el-button>
+                         style="background-color: black; border-color: black; color: #efc239;font-weight: bold" v-if="relation===0">已发送申请</el-button>
+              <el-button @click="adopt" disabled
+                         style="background-color: black; border-color: black; color: #efc239;font-weight: bold" v-if="relation===2">已领养</el-button>
             </div>
           </div>
         </el-card>
@@ -107,7 +110,7 @@ export default {
       post: {},
       urlList: [],
       poster: {},
-      isApplying: 0
+      relation: 0
     }
   },
   methods: {
@@ -119,7 +122,7 @@ export default {
       }).then(res => {
         if (res.data.code === 200){
           that.post = res.data.data.form;
-          that.isApplying = res.data.data.applying;
+          that.relation = res.data.data.relation
           this.getPoster()
         }else {
           this.$message({
