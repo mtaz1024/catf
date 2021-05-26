@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 import Login from "../views/Login"
+
 
 Vue.use(VueRouter)
 
@@ -16,6 +16,11 @@ const routes = [
     // }
   },
   {
+    path: '/404',
+    name: 'NotFound',
+    component: () => import('../views/NotFound')
+  },
+  {
     path: '/register',
     name: 'Register',
     component: () => import('../views/Register')
@@ -24,6 +29,14 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/admin/admin'),
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: '/index',

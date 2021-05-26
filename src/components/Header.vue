@@ -93,12 +93,14 @@ export default {
       this.$router.push(url)
     },
     logout() {
-      this.$api.user.logout().then(res => {
-        if (res.data.code === 200){
-          this.$store.commit('logout')
-          this.$router.replace("/login")
-        }
-      })
+      this.$store.commit('logout')
+      this.$router.replace("/login")
+      // this.$api.user.logout().then(res => {
+      //   if (res.data.code === 200){
+      //     this.$store.commit('logout')
+      //     this.$router.replace("/login")
+      //   }
+      // })
     },
     search(){
       console.log("输入了：" + this.searchWord)

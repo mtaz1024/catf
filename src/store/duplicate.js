@@ -40,29 +40,37 @@ export default {
                     name: '年龄',
                     list: [
                         {
-                            value: '1~3月',
-                            number: 1
+                            number: 1,
+                            value: '0~2个月'
                         },
                         {
-                            value: '3~11月',
-                            number: 2
+                            number: 2,
+                            value: '3~5个月'
                         },
                         {
-                            value: '1~2岁',
-                            number: 3
+                            number: 3,
+                            value: '6~12个月'
                         },
                         {
-                            value: '2~3岁',
-                            number: 4
+                            number: 4,
+                            value: '1~3岁'
                         },
                         {
-                            value: '4岁以上',
-                            number: 5
+                            number: 5,
+                            value: '4~6岁'
+                        },
+                        {
+                            number: 6,
+                            value: '7~9岁'
+                        },
+                        {
+                            number: 7,
+                            value: '10岁以上'
                         },
                         {
                             value: '其他',
                             number: 0
-                        }          ],
+                        }],
                     checkList: []
                 },
                 {
@@ -150,6 +158,40 @@ export default {
                 {
                     value: 6,
                     label: '狮子猫'
+                },
+                {
+                    value: 0,
+                    label: '其他'
+                }
+            ],
+            ageSelect: [
+                {
+                    value: 1,
+                    label: '0~2个月'
+                },
+                {
+                    value: 2,
+                    label: '3~5个月'
+                },
+                {
+                    value: 3,
+                    label: '6~12个月'
+                },
+                {
+                    value: 4,
+                    label: '1~3岁'
+                },
+                {
+                    value: 5,
+                    label: '4~6岁'
+                },
+                {
+                    value: 6,
+                    label: '7~9岁'
+                },
+                {
+                    value: 7,
+                    label: '10岁以上'
                 },
                 {
                     value: 0,
@@ -254,13 +296,6 @@ export default {
                     value: 1
                 }
             ],
-            applyState: [
-                [0, '审核中'],
-                [1, '未通过'],
-                [2, '已通过'],
-                [3, '已取消'],
-                [4, '原帖已被删除']
-            ],
             postState: [
                 {
                     value: 0,
@@ -274,6 +309,13 @@ export default {
                     value: 2,
                     label: '已领养'
                 }
+            ],
+            applyState: [
+                [0, '审核中'],
+                [1, '未通过'],
+                [2, '已通过'],
+                [3, '已取消'],
+                [4, '原帖已被删除']
             ]
         }
     }

@@ -13,43 +13,43 @@
                 <el-image :src="item" fit="contain"
                           style="width: 600px; height: 300px"></el-image>
               </el-carousel-item>
+              <el-carousel-item v-if="urlList.length === 0">
+                暂无图片
+              </el-carousel-item>
             </el-carousel>
 <!--            <el-image :src="post.catPic" style="width: 400px; height: 300px" fit="cover"></el-image>-->
           </div>
           <div class="info-content">
             <div>
-              姓名:
-              <span>{{ post.catName }}</span>
+              姓名: <span>{{ (post.catName===''||post.catName === null)?'暂无':post.catName }}</span>
             </div>
             <div>
-              种类:
-              <span>{{ post.catType }}</span>
+              种类: <span>{{ post.catType | getString('type')}}</span>
             </div>
             <div>
-              年龄:
-              <span>{{ post.catYear + " + " + post.catMonth }}</span>
+              年龄: <span>{{ post.catAge | getString('age') }}</span>
             </div>
             <div>
-              性别:
-              <span>{{ post.catGender }}</span>
+              性别: <span>{{ post.catGender | getString('gender')  }}</span>
             </div>
             <div>
-              绝育情况:
-              <span>{{ post.catDesexing }}</span>
+              绝育情况: <span>{{ post.catDesexing | getString('desex')  }}</span>
             </div>
             <div>
-              疫苗情况:
-              <span>{{ post.catVaccination }}</span>
+              疫苗情况: <span>{{ post.catVaccination | getString('vaccination')  }}</span>
             </div>
             <div>
-              驱虫情况:
-              <span>{{ post.catDeworming }}</span>
+              驱虫情况: <span>{{ post.catDeworming | getString('deworm')  }}</span>
             </div>
             <div>
-              健康情况: <span>{{ post.catHealth }}</span>
+              健康情况: <span>{{ post.catHealth | getString('health')  }}</span>
             </div>
             <div>
-              介绍: <span>{{ post.catInfo }}</span>
+              介绍: <span>{{ (post.catInfo==='' || post.catInfo === null)?'暂无':post.catInfo }}</span>
+            </div>
+            <div>
+<!--              所在地: <span>{{ post.postProvince|getString("province") }} {{ post.postCity|getString("city") }} {{ post.postDistrict|getString("district") }}</span><br>-->
+              所在地: <span>{{ post.postProvince | getAddress( post.postCity, post.postDistrict )}}</span><br>
             </div>
             <!-- 按钮 -->
             <div class="button" style="text-align: right; margin-top: 20px">
@@ -66,14 +66,15 @@
         <el-card class="poster-content">
           <div style="text-align: left">
             <div class="poster-avatar">
-              <el-avatar :src="poster.avatar" :size="60" circle></el-avatar>
+              <el-avatar :src="poster.avatar" :size="60" circle @click.native="toUser"></el-avatar>
             </div>
             <div class="poster-info">
               <div>
                 <span style="font-size: 24px">{{ poster.username }}</span>
               </div>
-              <div>
-                <span style="font-size: 18px">{{ (String)(post.releaseTime).substr(0,10) }}发布</span>
+              <div style="line-height: 16px">
+                <span style="font-size: 14px; font-weight: normal">首次发布：{{ (String)(post.releaseTime).substr(0,10) }}</span><br>
+                <span style="font-size: 14px; font-weight: normal">上次修改：{{ (String)(post.modifiedTime).substr(0,10) }}</span>
               </div>
             </div>
           </div>
@@ -90,7 +91,12 @@
 
 <script>
 // import Header from "../../components/Header";
+import duplicate from "../../store/duplicate";
+import { regionDataPlus, CodeToText, TextToCode} from 'element-china-area-data'
 export default {
+  ...regionDataPlus,
+  ...CodeToText,
+  ...TextToCode,
   name: "Post",
   components: {
     // Header
@@ -201,6 +207,54 @@ export default {
           type: "error"
         })
       })
+    },
+    toUser() {
+      this.$message.error({
+        message: this.post.posterId
+      })
+      // this.$router.push({
+      //   path: '/user',
+      //   query: {
+      //     userId: this.post.posterId
+      //   }
+      // })
+    }
+  },
+  filters: {
+    getString(number, select) {
+      if (select === "gender"){
+        return duplicate.data().genderSelect.find(o => o.value === number).label
+      } else if (select === "type"){
+        return duplicate.data().typeSelect.find(o => o.value === number).label
+      } else if (select === "desex"){
+        return duplicate.data().desexingSelect.find(o => o.value === number).label
+      } else if (select === "health"){
+        return duplicate.data().healthSelect.find(o => o.value === number).label
+      } else if (select === "state"){
+        return duplicate.data().postState.find(o => o.value === number).label
+      } else if (select === "age"){
+        return duplicate.data().ageSelect.find(o => o.value === number).label
+      } else if (select === "deworm"){
+        return duplicate.data().dewormingSelect.find(o => o.value === number).label
+      } else if (select === "vaccination"){
+        return duplicate.data().vaccinationSelect.find(o => o.value === number).label
+      } else if (select === "province"){
+        return CodeToText[number]
+      } else if (select === "city") {
+        return CodeToText[number]
+      } else if (select === "district") {
+        return CodeToText[number]
+      }
+
+    },
+    getAddress(province, city, district){
+      if (CodeToText[province] === "全部"){
+        return CodeToText[province]
+      }
+      if (CodeToText[city] === "全部"){
+        return CodeToText[province] + " " +CodeToText[city]
+      }
+      return CodeToText[province] + " " +CodeToText[city] + " " + CodeToText[district]
     }
   },
   mounted() {

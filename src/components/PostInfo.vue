@@ -1,19 +1,18 @@
 <template>
   <div>
     <div>
-      <el-form v-model="MyPostForm" label-position="right" label-width="100px" :disabled="MyReadMode">
+      <el-form :model="MyPostForm" label-position="right" label-width="100px" ref="MyPostForm" :disabled="readMode">
         <div class="left-part">
-          <el-form-item label="标题">
+          <el-form-item label="标题" prop="postTitle">
             <el-input type="text" v-model="MyPostForm.postTitle"
-                      maxlength="20"
-                      show-word-limit></el-input>
+                      maxlength="20" show-word-limit></el-input>
           </el-form-item>
-          <el-form-item label="猫咪名字">
+          <el-form-item label="猫咪名字" prop="catName">
             <el-input type="text" v-model="MyPostForm.catName"
                       maxlength="20"
                       show-word-limit></el-input>
           </el-form-item>
-          <el-form-item label="猫咪描述">
+          <el-form-item label="猫咪描述" prop="catInfo">
             <el-input type="textarea" v-model="MyPostForm.catInfo"
                       :autosize="{ minRows: 4}"
                       maxlength="250"
@@ -34,56 +33,54 @@
           </el-form-item>
         </div>
         <div class="right-part">
-          <el-form-item label="猫咪种类">
+          <el-form-item label="区域" prop="selectedOptions">
+            <el-cascader size="large" :options="option"
+                         v-model="MyPostForm.selectedOptions" @change="handleChange">
+            </el-cascader>
+          </el-form-item>
+          <el-form-item label="猫咪种类" prop="catType">
             <el-select v-model="MyPostForm.catType">
               <el-option v-for="item in typeSelect" :key="item.value"
                          :label="item.label"
                          :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="猫咪年龄1">
-            <el-select v-model="MyPostForm.catMonth">
-              <el-option v-for="item in monthSelect" :key="item.value"
+          <el-form-item label="猫咪年龄" prop="catAge">
+            <el-select v-model="MyPostForm.catAge">
+              <el-option v-for="item in ageSelect" :key="item.value"
                          :label="item.label"
                          :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="猫咪年龄2">
-            <el-select v-model="MyPostForm.catYear">
-              <el-option v-for="item in yearSelect" :key="item.value"
-                         :label="item.label"
-                         :value="item.value"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="猫咪性别">
+          <el-form-item label="猫咪性别" prop="catGender">
             <el-select v-model="MyPostForm.catGender">
               <el-option v-for="item in genderSelect" :key="item.value"
                          :label="item.label"
                          :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="绝育情况">
+          <el-form-item label="绝育情况" prop="catDesexing">
             <el-select v-model="MyPostForm.catDesexing">
               <el-option v-for="item in desexingSelect" :key="item.value"
                          :label="item.label"
                          :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="疫苗情况">
+          <el-form-item label="疫苗情况" prop="catVaccination">
             <el-select v-model="MyPostForm.catVaccination">
               <el-option v-for="item in vaccinationSelect" :key="item.value"
                          :label="item.label"
                          :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="驱虫情况">
+          <el-form-item label="驱虫情况" prop="catDeworming">
             <el-select v-model="MyPostForm.catDeworming">
               <el-option v-for="item in dewormingSelect" :key="item.value"
                          :label="item.label"
                          :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="健康情况">
+          <el-form-item label="健康情况" prop="catHealth">
             <el-select v-model="MyPostForm.catHealth">
               <el-option v-for="item in healthSelect" :key="item.value"
                          :label="item.label"
@@ -94,15 +91,16 @@
       </el-form>
     </div>
     <div style="clear: both; margin: auto; text-align: center">
-      <el-button v-if="MyReadMode" type="button" size="small" @click="edit" style="background-color: #efc239; border-color: #efc239; color: black; font-weight: bold;">编辑</el-button>
-      <el-button v-if="!MyReadMode" type="button" size="small" @click="submit" style="background-color: black ;border-color: black; color: #efc239; font-weight: bold;">提交</el-button>
+      <el-button v-if="readMode" type="button" size="small" @click="edit" style="background-color: #efc239; border-color: #efc239; color: black; font-weight: bold;">编辑</el-button>
+      <el-button v-if="!readMode" type="button" size="small" @click="cancel" style="background-color: black ;border-color: black; color: #efc239; font-weight: bold;">取消</el-button>
+      <el-button v-if="!readMode" type="button" size="small" @click="submit" style="background-color: #efc239; border-color: #efc239; color: black; font-weight: bold;">提交</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import duplicate from "../store/duplicate";
-
+import { regionDataPlus } from 'element-china-area-data'
 export default {
   props: {
     postForm: Object,
@@ -112,11 +110,13 @@ export default {
   data() {
     return {
       MyPostForm: {},
-      MyReadMode: true,
+      readMode: false,
+      addressReadMode: false,
       uploadUrl: "http://localhost:8081/api/post/image/upload",
       fileList: [],
       fileUrlList: [],
       typeSelect: duplicate.data().typeSelect,
+      ageSelect: duplicate.data().ageSelect,
       monthSelect: duplicate.data().monthSelect,
       yearSelect: duplicate.data().yearSelect,
       genderSelect: duplicate.data().genderSelect,
@@ -124,6 +124,8 @@ export default {
       vaccinationSelect: duplicate.data().vaccinationSelect,
       dewormingSelect: duplicate.data().dewormingSelect,
       healthSelect: duplicate.data().healthSelect,
+      option: regionDataPlus,
+      // selectedOptions: ["130000", "130100", "130103"]
     }
   },
   methods: {
@@ -151,11 +153,16 @@ export default {
       })
     },
     edit() {
-      this.MyReadMode = false
+      this.readMode = false
     },
     submit() {
-      this.MyReadMode = true
+      this.readMode = true
       var that = this
+      this.MyPostForm.postProvince = this.MyPostForm.selectedOptions[0]
+      this.MyPostForm.postCity = this.MyPostForm.selectedOptions[1]
+      this.MyPostForm.postDistrict = this.MyPostForm.selectedOptions[2]
+      delete this.MyPostForm.selectedOptions
+      console.log(this.MyPostForm)
       this.$api.post.updateForm(that.MyPostForm)
       .then(res => {
         if (res.data.code === 200){
@@ -209,12 +216,42 @@ export default {
       console.log("fileList")
       console.log(fileList)
       this.fileUrlList.push(response.data)
+    },
+    handleChange(value) {
+      console.log(value)
+      console.log(this.selectedOptions)
+    },
+    cancel() {
+      var selectedOptions = [];
+      if (this.postForm.postProvince !== null){
+        selectedOptions.push(this.postForm.postProvince)
+      }
+      if (this.postForm.postCity !== null){
+        selectedOptions.push(this.postForm.postCity)
+      }
+      if (this.postForm.postDistrict !== null){
+        selectedOptions.push(this.postForm.postDistrict)
+      }
+      this.postForm.selectedOptions = selectedOptions
+      this.MyPostForm = this.postForm
+      console.log(this.MyPostForm.selectedOptions)
+      this.getImage(this.MyPostForm.postId)
+      this.readMode = true
     }
   },
   mounted() {
+    this.readMode = true
+    var selectedOptions = [];
+    selectedOptions.push(this.postForm.postProvince)
+    if (this.postForm.postProvince !== ""){
+      selectedOptions.push(this.postForm.postCity)
+      if(this.postForm.postCity !== ""){
+        selectedOptions.push(this.postForm.postDistrict)
+      }
+    }
+    this.postForm.selectedOptions = selectedOptions
     this.MyPostForm = this.postForm
-    this.MyReadMode = true
-    console.log(this.MyReadMode)
+    console.log(this.MyPostForm.selectedOptions)
     this.getImage(this.MyPostForm.postId)
   }
 }

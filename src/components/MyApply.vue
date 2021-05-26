@@ -39,7 +39,8 @@
                        prop="catPic"
                        width="130">
         <template slot-scope="scope">
-          <el-image :src=scope.row.catPic style="height: 80px;width: 109px">
+          <el-image :src=scope.row.catPic style="height: 80px;width: 109px"
+                    class="image-content" @click="toPost(scope.row.postId)">
           </el-image>
         </template>
       </el-table-column>
@@ -122,6 +123,7 @@
           background
           layout="prev, pager, next"
           @current-change="changePage"
+          :hide-on-single-page="true"
           :current-page.sync=currentPage
           :page-size=10
           :total=totalCount>
@@ -245,6 +247,14 @@ export default {
       this.$message.error({
         message: "userId" + userId
       })
+    },
+    toPost(postId){
+      this.$router.push({
+        path: '/post',
+        query: {
+          postId: postId
+        }
+      })
     }
   },
   filters: {
@@ -262,5 +272,7 @@ export default {
 </script>
 
 <style scoped>
-
+.image-content :hover{
+  cursor: pointer;
+}
 </style>

@@ -39,7 +39,8 @@
                        prop="catPic"
                        width="130">
         <template slot-scope="scope">
-          <el-image :src=scope.row.catPic style="height: 80px;width: 109px">
+          <el-image :src=scope.row.catPic style="height: 80px;width: 109px"
+                    class="image-content" @click="toPost(scope.row.postId)">
           </el-image>
         </template>
       </el-table-column>
@@ -86,6 +87,9 @@
           <el-tag type="info" v-if="scope.row.adoptState === 3">
             <div style="font-weight: bold">{{ scope.row.adoptState|getApplyState }}</div>
           </el-tag>
+          <el-tag type="warning" v-if="scope.row.adoptState === 4">
+            <div style="font-weight: bold">{{ scope.row.adoptState|getApplyState }}</div>
+          </el-tag>
           <!--                  <div>{{ scope.row.adoptState|getApplyState }}</div>-->
         </template>
       </el-table-column>
@@ -130,6 +134,14 @@
                 type="danger"
                 @click="refuse(scope.$index, scope.row)">已取消</el-button>
           </div>
+          <div v-if="scope.row.adoptState === 4">
+            <el-button
+                disabled
+                size="mini"
+                style="background-color: black; border-color: black; color: #efc239;font-weight: bold"
+                type="danger"
+                @click="refuse(scope.$index, scope.row)">已停止</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -138,6 +150,7 @@
           background
           layout="prev, pager, next"
           @current-change="changePage"
+          :hide-on-single-page="true"
           :current-page.sync=currentPage
           :page-size=10
           :total=totalCount>
@@ -309,6 +322,14 @@ export default {
       this.$message.error({
         message: "userId" + userId
       })
+    },
+    toPost(postId){
+      this.$router.push({
+        path: '/post',
+        query: {
+          postId: postId
+        }
+      })
     }
   },
   filters: {
@@ -326,5 +347,7 @@ export default {
 </script>
 
 <style scoped>
-
+.image-content :hover{
+  cursor: pointer;
+}
 </style>

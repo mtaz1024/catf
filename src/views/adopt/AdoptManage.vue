@@ -42,7 +42,8 @@
                            prop="catPic"
                            width="130">
             <template slot-scope="scope">
-              <el-image :src=scope.row.catPic style="height: 80px;width: 109px">
+              <el-image :src=scope.row.catPic style="height: 80px;width: 109px"
+                        class="image-content" @click="toPost(scope.row.postId)">
               </el-image>
             </template>
           </el-table-column>
@@ -93,6 +94,7 @@
           background
           layout="prev, pager, next"
           @current-change="changePage"
+          :hide-on-single-page="true"
           :current-page.sync=currentPage
           :page-size=5
           :total=totalCount>
@@ -231,6 +233,14 @@ export default {
         message: '该功能暂未开放'
       })
       this.$router.push("/timeline")
+    },
+    toPost(postId){
+      this.$router.push({
+        path: '/post',
+        query: {
+          postId: postId
+        }
+      })
     }
   },
   mounted() {
@@ -248,5 +258,8 @@ export default {
   margin: 20px auto 10px auto;
   border-radius: 15px;
   border: 1px solid white;
+}
+.image-content :hover{
+  cursor: pointer;
 }
 </style>

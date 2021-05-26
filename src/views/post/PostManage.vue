@@ -50,15 +50,21 @@
                            prop="catPic"
                            width="130">
             <template slot-scope="scope">
-              <el-image :src=scope.row.catPic style="height: 80px;width: 109px">
+              <el-image :src=scope.row.catPic style="height: 80px;width: 109px"
+                        @click="toPost(scope.row.postId)" class="post-image" v-if="(scope.row.catPic!==''&&scope.row.catPic!==null)">
               </el-image>
+              <div class="post-image"
+                   v-if="(scope.row.catPic===''||scope.row.catPic===null)" @click="toPost(scope.row.postId)">暂无</div>
             </template>
           </el-table-column>
           <!-- 标题 -->
           <el-table-column label="标题"
                            prop="postTitle"
                            sortable
-                           width="200">
+                           width="200" @click="toPost()" class="post-title-co">
+            <template slot-scope="scope" class="post-title-tem">
+              <div style="font-weight: bold;" @click="toPost(scope.row.postId)">{{ scope.row.postTitle }}</div>
+            </template>
           </el-table-column>
           <!-- 猫咪名字 -->
           <el-table-column label="猫咪名字"
@@ -139,6 +145,7 @@
           background
           layout="prev, pager, next"
           @current-change="changePage"
+          :hide-on-single-page="true"
           :current-page.sync=currentPage
           :page-size=5
           :total=totalCount>
@@ -283,6 +290,14 @@ export default {
         this.sortOrder = column.order
         this.getPostList()
       }
+    },
+    toPost(postId) {
+      this.$router.push({
+        path: '/post',
+        query: {
+          postId: postId
+        }
+      })
     }
   },
   filters: {
@@ -323,5 +338,8 @@ export default {
   border: 1px solid white;
   margin: 20px auto 10px auto;
   width: 1500px;
+}
+.post-image :hover{
+  cursor: pointer;
 }
 </style>

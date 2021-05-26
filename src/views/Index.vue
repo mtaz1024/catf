@@ -9,8 +9,13 @@
         <div class="select-item" v-for="(list, index) in searchList" :key="index">
           <div style="display: inline-block">{{ list.name + "："}}</div>
           <el-checkbox-group v-model="list.checkList" style="display: inline-block">
-            <el-checkbox v-for="(item, index) in list.list" :key=index :label="item.number" @change="search(list)">{{ item.value }}</el-checkbox>
+            <el-checkbox v-for="(item, index) in list.list" :key=index :label="item.number" @change="search">{{ item.value }}</el-checkbox>
           </el-checkbox-group>
+        </div>
+        <div class="address-item">
+          <span>区域：</span>
+          <el-cascader size="large" :options="option"
+                       v-model="selectedOptions" @change="search"></el-cascader>
         </div>
       </el-card>
 
@@ -23,6 +28,11 @@
               <el-image :src="item.catPic" fit="cover" style="width: 252px; height: 200px;"></el-image>
               <div>{{ item.postTitle }}</div>
             </el-card>
+          <div class="no-result-tip" v-if="totalCount===0">
+            <p class="no-result-tip-warning">No Result</p>
+            <p style="margin-top: 8px">抱歉，没有找到相关结果。</p>
+            <p>期待您的发帖！</p>
+          </div>
         </div>
         <div style="height: 10px;clear: bottom"></div>
       </el-card>
@@ -33,6 +43,7 @@
             background
             layout="prev, pager, next"
             @current-change="search"
+            :hide-on-single-page=true
             :current-page.sync=currentPage
             :page-size=10
             :total=totalCount>
@@ -47,7 +58,7 @@
 
 <script>
 import duplicate from "../store/duplicate";
-
+import { regionDataPlus } from 'element-china-area-data'
 // import Header from "../components/Header";
 export default {
   ...duplicate,
@@ -60,19 +71,24 @@ export default {
       searchList: duplicate.data().searchList,
       resultList: [],
       currentPage: 1,
-      totalCount: 20
+      totalCount: 20,
+      option: regionDataPlus,
+      selectedOptions: [""]
     }
   },
   methods: {
     search() {
       console.log("种类：" + this.searchList[0].checkList.toString())
-      console.log("年龄：" + this.searchList[1].checkList)
-      console.log("性别：" + this.searchList[2].checkList)
+      console.log("年龄：" + this.searchList[1].checkList.toString())
+      console.log("性别：" + this.searchList[2].checkList.toString())
+      console.log(this.selectedOptions)
       var that = this
       this.$api.search.search({
-        type: that.searchList[0].checkList.toString(),
-        // age: that.searchList[1].checkList,
-        gender: that.searchList[2].checkList.toString(),
+        type: that.searchList[0].checkList,
+        gender: that.searchList[2].checkList,
+        age: that.searchList[1].checkList,
+        address: that.selectedOptions
+      },{
         page: that.currentPage
       }).then(res => {
         if (res.data.code === 200){
@@ -100,6 +116,9 @@ export default {
           postId: postId
         }
       })
+    },
+    handleChange(value) {
+      console.log(value)
     }
   },
   mounted() {
@@ -124,7 +143,7 @@ export default {
 /*.select-container >>>.el-card__body{*/
 /*  padding-left: 39px;*/
 /*} 被下面的代替 */
-.select-item{
+.select-item, .address-item{
   margin-left: 20px;
   padding-top: 10px;
   height: 24px;
@@ -144,5 +163,19 @@ export default {
   margin: 10px 20px;
   height: 250px;
   width: 250px;
+}
+.no-result-tip{
+  /*width: 500px;*/
+  text-align: center;
+  margin: 50px auto;
+}
+.no-result-tip-warning{
+  /*text-align:center;*/
+  position: relative;
+  right: 3px;
+  color: #efc239;
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 </style>

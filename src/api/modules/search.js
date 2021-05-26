@@ -1,10 +1,11 @@
 import axios from '../http'
 import {base} from '../base'
 
-export const search = params =>{
+export const search = (data, params) =>{
     return axios({
-        method: 'get',
+        method: 'post',
         url: base.baseURL + '/search',
+        data,
         params
     })
 }

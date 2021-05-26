@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="app">
-      <Header></Header>
+      <Header v-show="$route.name !== 'Login' && $route.name !== 'Register' && $route.name !== 'Home'"></Header>
       <!--    <Header></Header>-->
       <router-view/>
     </div>

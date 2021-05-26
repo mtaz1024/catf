@@ -20,7 +20,7 @@ export default new Vuex.Store({
       // window.localStorage.removeItem("user")
     },
     logout(state){
-      state.user = ''
+      state.user = {}
       window.localStorage.removeItem("user")
     }
   },

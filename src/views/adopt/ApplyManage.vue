@@ -3,14 +3,14 @@
 <!--    <Header></Header>-->
     <el-card class="manage-container">
       <h2 style="margin-bottom: 20px">申请管理</h2>
-      <el-tabs v-model="activeTab">
+      <el-tabs v-model="activeTab" @tab-click="clickTab">
         <!-- 我的申请-->
         <el-tab-pane label="我的申请" name="myApply">
-          <MyApply></MyApply>
+          <MyApply ref="myApply"></MyApply>
         </el-tab-pane>
         <!-- 用户申请-->
         <el-tab-pane label="用户申请" name="otherApply">
-          <ReceivedApply></ReceivedApply>
+          <ReceivedApply ref="otherApply"></ReceivedApply>
         </el-tab-pane>
       </el-tabs>
     </el-card>
@@ -33,6 +33,16 @@ export default {
   data() {
     return{
       activeTab: 'myApply',
+    }
+  },
+  methods: {
+    clickTab() {
+      console.log(this.activeTab)
+      if (this.activeTab === "myApply"){
+        this.$refs.myApply.getMyApplyList();
+      }else {
+        this.$refs.otherApply.getOtherApplyList();
+      }
     }
   }
 }

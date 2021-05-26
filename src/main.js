@@ -5,6 +5,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import api from "./api";
+// import { regionDataPlus, CodeToText, TextToCode } from 'element-china-area-data'
 
 // axios
 var axios = require('axios')
@@ -19,6 +20,7 @@ Vue.use(ElementUI)
 // api
 Vue.prototype.$api = api
 Vue.config.productionTip = false
+
 
 // router.beforeEach((to, from, next) => {
 //   if (to.meta.requireAuth) {
