@@ -118,6 +118,14 @@ const routes = [
     meta: {
       requireAuth: true
     }
+  },
+  {
+    path: '/zone',
+    name: 'Zone',
+    component: () => import('../views/user/Zone'),
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 

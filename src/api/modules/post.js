@@ -29,7 +29,7 @@ export const getForm = params => {
 export const uploadImage = params => {
     return axios({
         method: 'post',
-        url: base.baseURL + '/post/uploadImage',
+        url: base.baseURL + '/image/uploadImage',
         params
     })
 }
@@ -88,6 +88,14 @@ export const deleteAllPost = params => {
     return axios({
         method: 'post',
         url: base.baseURL + '/post/deleteAll',
+        params
+    })
+}
+
+export const getTopPost = params =>{
+    return axios({
+        method: 'get',
+        url: base.baseURL + '/post/topPost',
         params
     })
 }

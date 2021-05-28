@@ -63,7 +63,7 @@
                            sortable
                            width="200" @click="toPost()" class="post-title-co">
             <template slot-scope="scope" class="post-title-tem">
-              <div style="font-weight: bold;" @click="toPost(scope.row.postId)">{{ scope.row.postTitle }}</div>
+              <div class="hover-txt" style="font-weight: bold;" @click="toPost(scope.row.postId)">{{ scope.row.postTitle }}</div>
             </template>
           </el-table-column>
           <!-- 猫咪名字 -->
@@ -112,7 +112,7 @@
           <el-table-column label="发布时间"
                            prop="releaseTime"
                            sortable
-                           width="110">
+                           width="200">
             <template slot-scope="scope">
               <div> {{ scope.row.releaseTime|fixTime }}</div>
             </template>
@@ -121,9 +121,17 @@
           <el-table-column label="申请情况"
                            prop="isAdopt"
                            sortable
-                           width="200">
+                           width="110">
             <template slot-scope="scope">
-              <div> {{ scope.row.isAdopt|getString("state") }}</div>
+              <el-tag v-if="scope.row.isAdopt === 0">
+                <div style="font-weight: bold"> {{ scope.row.isAdopt|getString("state") }}</div>
+              </el-tag>
+              <el-tag type="warning" v-if="scope.row.isAdopt === 1">
+                <div style="font-weight: bold"> {{ scope.row.isAdopt|getString("state") }}</div>
+              </el-tag>
+              <el-tag type="success" v-if="scope.row.isAdopt === 2">
+                <div style="font-weight: bold"> {{ scope.row.isAdopt|getString("state") }}</div>
+              </el-tag>
             </template>
           </el-table-column>
           <!-- 操作 -->
@@ -339,7 +347,10 @@ export default {
   margin: 20px auto 10px auto;
   width: 1500px;
 }
-.post-image :hover{
+.post-image:hover{
+  cursor: pointer;
+}
+.hover-txt:hover{
   cursor: pointer;
 }
 </style>

@@ -127,11 +127,11 @@ export default {
                 },
                 {
                     value: 2,
-                    label: '养过猫，目前无猫'
+                    label: '曾经有猫'
                 },
                 {
                     value: 3,
-                    label: '养过猫，目前有猫'
+                    label: '目前有猫'
                 }
             ],
             typeSelect: [
@@ -303,7 +303,7 @@ export default {
                 },
                 {
                     value: 1,
-                    label: '有人申请，待审核中'
+                    label: '待审核'
                 },
                 {
                     value: 2,

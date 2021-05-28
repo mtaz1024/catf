@@ -1,9 +1,9 @@
 <template>
   <div>
     <div id="app">
-      <Header v-show="$route.name !== 'Login' && $route.name !== 'Register' && $route.name !== 'Home'"></Header>
+      <Header class="header" v-show="$route.name !== 'Login' && $route.name !== 'Register' && $route.name !== 'Home'"></Header>
       <!--    <Header></Header>-->
-      <router-view/>
+      <router-view :key="$route.fullPath"/>
     </div>
   </div>
 
@@ -27,5 +27,12 @@ export default {
   margin: 0;
   min-width: 1200px;
   padding-left: calc(100vw - 100%);
+}
+.header{
+  background: white;
+  z-index: 999;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 </style>

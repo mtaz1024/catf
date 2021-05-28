@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <el-card class="header">
+    <div class="header">
       <!-- LOGO -->
       <el-col :span="8">
         <el-image
@@ -31,24 +31,24 @@
         <!-- 头像&其他功能入口 -->
         <el-popover
             placement="top-start"
-            width="60"
-            trigger="click">
-          <div style="margin: 8px 3px 8px 3px; text-align: center; line-height: 20px; font-size: 16px; letter-spacing: 3px">
+            width="106"
+            trigger="hover">
+          <div style="text-align: center; line-height: 20px; font-size: 14px; font-weight: bold; letter-spacing: 3px">
             <ul class="manage-list" v-for="(item, index) in urlList" :key="index" @click="urlHandler(item.url)">
-              <el-icon :class=item.icon style="margin-right: 5px"></el-icon>
+              <el-icon :class=item.icon style="font-size: 16px"></el-icon>
               {{ item.value }}
             </ul>
           </div>
             <!-- 通过 slot="reference" 指明这是出发popover的元素 -->
-            <el-avatar slot="reference" :size="50" :src=avatarUrl @error="errorHandler"
-                       style="position: relative; top: 5px" ref="popover">
-              <el-avatar :size="50">User</el-avatar> <!-- 用户未设置头像时显示 -->
-            </el-avatar>
+          <el-avatar slot="reference" :size="50" :src=avatarUrl @error="errorHandler"
+                     style="position: relative; top: 5px" ref="popover">
+            <el-avatar :size="50">User</el-avatar> <!-- 用户未设置头像时显示 -->
+          </el-avatar>
         </el-popover>
         <!-- 登出按钮 -->
         <div class="logout-button" @click="logout">Logout</div>
       </el-col>
-    </el-card>
+    </div>
 
   </div>
 </template>
@@ -80,6 +80,11 @@ export default {
           value: '领养中心',
           url: '/adoptManage',
           icon: 'el-icon-s-claim'
+        },
+        {
+          value: '个人主页',
+          url: '/zone',
+          icon: 'el-icon-camera-solid'
         }
       ],
       searchWord: ''
@@ -90,7 +95,16 @@ export default {
       return true;
     },
     urlHandler(url){
-      this.$router.push(url)
+      if (url === '/zone'){
+        this.$router.push({
+          path: url,
+          query: {
+            userId: this.$store.state.user.userId
+          }
+        })
+      } else{
+        this.$router.push(url)
+      }
     },
     logout() {
       this.$store.commit('logout')
@@ -125,11 +139,15 @@ export default {
 
 <style scoped>
 .header{
-  margin: 10px auto;
+  margin: 0 auto;
   width: 1500px;
   height: 60px;
   border-radius: 15px;
-  border: 1px solid white;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
+  border-top: none;
 }
 >>>.el-card__body{
   padding: 0;
@@ -148,16 +166,17 @@ export default {
 }
 .manage-list{
   margin: 0;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 5px 5px 5px;
   cursor: pointer;
 }
 .manage-list:hover{
   font-weight: bold;
+  background: #DCDFE6;
 }
 </style>
 <style>
 /*.el-popover{*/
-/*  min-width: 50px;*/
+/*  min-width: 10px;*/
 /*  padding: 0;*/
 /*}*/
 </style>

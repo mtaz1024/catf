@@ -116,7 +116,7 @@ export default {
   },
   data () {
     return {
-      uploadUrl: "http://localhost:8081/api/post/uploadImage",
+      uploadUrl: "http://localhost:8081/api/image/uploadImage",
       fileList: [],
       fileUrlList: [],
       postForm: {

@@ -48,6 +48,9 @@
       <el-table-column label="标题"
                        prop="postTitle"
                        width="120">
+        <template slot-scope="scope">
+          <div class="hover-txt" style="font-weight: bold" @click="toPost(scope.row.postId)">{{ scope.row.postTitle }}</div>
+        </template>
       </el-table-column>
       <!-- 猫咪名字 -->
       <el-table-column label="猫咪名字"
@@ -60,7 +63,7 @@
                        sortable
                        width="120">
         <template slot-scope="scope">
-          <div style="font-weight: bold" @click="toHomePage(scope.row.posterId)">{{ scope.row.posterName }}</div>
+          <div class="hover-txt" style="font-weight: bold" @click="toZone(scope.row.posterId)">{{ scope.row.posterName }}</div>
         </template>
       </el-table-column>
       <!-- 发布时间 -->
@@ -243,9 +246,13 @@ export default {
         })
       })
     },
-    toHomePage(userId){
-      this.$message.error({
-        message: "userId" + userId
+    toZone(userId){
+      console.log(userId)
+      this.$router.push({
+        path: '/zone',
+        query: {
+          userId: userId
+        }
       })
     },
     toPost(postId){
@@ -273,6 +280,9 @@ export default {
 
 <style scoped>
 .image-content :hover{
+  cursor: pointer;
+}
+.hover-txt:hover{
   cursor: pointer;
 }
 </style>

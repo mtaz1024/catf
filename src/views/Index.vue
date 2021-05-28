@@ -5,19 +5,22 @@
 
     <div class="container">
       <!-- select -->
-      <el-card class="select-container">
-        <div class="select-item" v-for="(list, index) in searchList" :key="index">
-          <div style="display: inline-block">{{ list.name + "："}}</div>
-          <el-checkbox-group v-model="list.checkList" style="display: inline-block">
-            <el-checkbox v-for="(item, index) in list.list" :key=index :label="item.number" @change="search">{{ item.value }}</el-checkbox>
-          </el-checkbox-group>
+      <div class="select-container">
+        <div class="select-content">
+          <div class="select-item" v-for="(list, index) in searchList" :key="index">
+            <div style="display: inline-block">{{ list.name + "："}}</div>
+            <el-checkbox-group v-model="list.checkList" style="display: inline-block">
+              <el-checkbox v-for="(item, index) in list.list" :key=index :label="item.number" @change="search">{{ item.value }}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+          <div class="address-item">
+            <span>区域：</span>
+            <el-cascader v-model="selectedOptions"
+                         size="large" :options="option" @change="search"></el-cascader>
+          </div>
         </div>
-        <div class="address-item">
-          <span>区域：</span>
-          <el-cascader size="large" :options="option"
-                       v-model="selectedOptions" @change="search"></el-cascader>
-        </div>
-      </el-card>
+
+      </div>
 
       <!-- result -->
       <el-card class="result-container" :body-style="{padding: 0}">
@@ -129,20 +132,16 @@ export default {
 
 <style scoped>
 .select-container, .result-container{
-  margin: 20px auto;
+  margin: 15px auto;
   width: 1500px;
   border-radius: 15px;
-  border: 1px solid white;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
 }
-/*.result-container>>>.el-card__body{*/
-/*  padding: 0;*/
-/*}*/
-/*.result-item>>>.el-card__body{*/
-/*  padding: 20px;*/
-/*}*/
-/*.select-container >>>.el-card__body{*/
-/*  padding-left: 39px;*/
-/*} 被下面的代替 */
+/*搜索处*/
+.select-content{
+  padding: 10px 10px;
+}
 .select-item, .address-item{
   margin-left: 20px;
   padding-top: 10px;
@@ -151,11 +150,12 @@ export default {
   font-weight: bold;
   text-align: left;
 }
+.address-item{
+  height: 40px;
+}
+/*结果处*/
 .result-box{
   width: 1460px;
-  /*margin: 0 auto;*/
-  /*margin-top: 10px;*/
-  /*text-align: center;*/
 }
 .result-item{
   display: inline-block;

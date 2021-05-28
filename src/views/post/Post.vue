@@ -69,7 +69,7 @@
         <el-card class="poster-content">
           <div style="text-align: left">
             <div class="poster-avatar">
-              <el-avatar :src="poster.avatar" :size="60" circle @click.native="toUser"></el-avatar>
+              <el-avatar :src="poster.avatar" :size="60" circle @click.native="toZone"></el-avatar>
             </div>
             <div class="poster-info">
               <div>
@@ -211,16 +211,13 @@ export default {
         })
       })
     },
-    toUser() {
-      this.$message.error({
-        message: this.post.posterId
+    toZone() {
+      this.$router.push({
+        path: '/zone',
+        query: {
+          userId: this.post.posterId
+        }
       })
-      // this.$router.push({
-      //   path: '/user',
-      //   query: {
-      //     userId: this.post.posterId
-      //   }
-      // })
     }
   },
   filters: {
@@ -275,10 +272,30 @@ export default {
   width: 1500px;
   margin: 20px auto;
 }
-.post-content, .poster-content, .relate-content{
+.post-content{
   padding: 0;
   border-radius: 15px;
-  border: 1px solid white;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
+  /*border-top-right-radius: 0;*/
+}
+
+.poster-content{
+  padding: 0;
+  border-radius: 15px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
+  /*border-top-left-radius: 0;*/
+  /*border-bottom-left-radius: 0;*/
+}
+
+.relate-content{
+  padding: 0;
+  border-radius: 15px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
+  /*border-top-left-radius: 0;*/
+  /*border-bottom-left-radius: 0;*/
 }
 .relate-content{
   margin-top: 20px;

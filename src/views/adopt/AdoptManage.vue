@@ -52,12 +52,18 @@
                            prop="postTitle"
                            sortable
                            width="120">
+            <template slot-scope="scope">
+              <div class="hover-txt" style="font-weight: bold" @click="toPost(scope.row.postId)">{{ scope.row.postTitle }}</div>
+            </template>
           </el-table-column>
           <!-- 发布者 -->
           <el-table-column label="发布者"
                            prop="posterName"
                            sortable
                            width="120">
+            <template slot-scope="scope">
+              <div class="hover-txt" style="font-weight: bold" @click="toZone(scope.row.posterId)">{{ scope.row.posterName }}</div>
+            </template>
           </el-table-column>
           <!-- 发布时间 -->
           <el-table-column label="发布时间"
@@ -228,17 +234,30 @@ export default {
     },
     edit(index, adopt){
       console.log(index, adopt);
-      this.$message({
-        type: "error",
-        message: '该功能暂未开放'
+      // this.$message({
+      //   type: "error",
+      //   message: '该功能暂未开放'
+      // })
+      this.$router.push({
+        path: '/timeline',
+        query: {
+          adoptId: adopt.adoptId
+        }
       })
-      this.$router.push("/timeline")
     },
     toPost(postId){
       this.$router.push({
         path: '/post',
         query: {
           postId: postId
+        }
+      })
+    },
+    toZone(userId){
+      this.$router.push({
+        path: '/zone',
+        query: {
+          userId: userId
         }
       })
     }
@@ -260,6 +279,9 @@ export default {
   border: 1px solid white;
 }
 .image-content :hover{
+  cursor: pointer;
+}
+.hover-txt:hover{
   cursor: pointer;
 }
 </style>
