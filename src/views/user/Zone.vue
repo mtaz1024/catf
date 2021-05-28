@@ -249,7 +249,7 @@ export default {
   float: right;
   position: -webkit-sticky;
   position: sticky;
-  top: 71px;
+  top: 76px;
 }
 .info-container{
   border-radius: 15px;
@@ -302,7 +302,7 @@ export default {
   width: 352px;
   position: -webkit-sticky;
   position: sticky;
-  top: 71px;
+  top: 76px;
 }
 .post-container{
   border-radius: 15px;
@@ -344,7 +344,7 @@ export default {
   border-radius: 15px;
   border: 1px solid #eaeaea;
   box-shadow: 0 0 5px #cac6c6;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 .create_content{
   padding: 15px 10px 10px;

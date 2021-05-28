@@ -351,3 +351,10 @@ export default {
   font-weight: bold;
 }
 </style>
+
+<style>
+.el-popover {
+  min-width: 10px;
+  padding: 10px 10px 10px 10px;
+}
+</style>

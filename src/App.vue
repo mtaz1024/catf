@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="app">
-      <Header v-show="$route.name !== 'Login' && $route.name !== 'Register' && $route.name !== 'Home'"></Header>
+      <Header class="app-header" v-show="$route.name !== 'Login' && $route.name !== 'Register' && $route.name !== 'Home'"></Header>
       <!--    <Header></Header>-->
       <router-view :key="$route.fullPath"/>
     </div>
@@ -27,5 +27,12 @@ export default {
   margin: 0;
   min-width: 1200px;
   padding-left: calc(100vw - 100%);
+}
+
+</style>
+<style>
+.el-popover {
+  min-width: 10px;
+  padding: 10px 10px 10px 10px;
 }
 </style>

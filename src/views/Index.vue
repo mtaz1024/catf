@@ -179,3 +179,10 @@ export default {
   margin-bottom: 0;
 }
 </style>
+
+<style>
+.el-popover {
+  min-width: 10px;
+  padding: 10px 10px 10px 10px;
+}
+</style>

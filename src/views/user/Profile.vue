@@ -255,8 +255,9 @@ export default {
 <style scoped>
 .profile-container{
   border-radius: 15px;
-  border: 1px solid white;
-  margin: 20px auto;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
+  margin: 15px auto;
   width: 1500px;
 }
 .change-tool{
@@ -274,5 +275,12 @@ export default {
 .info-container>>>.el-card__body, .more-info-container>>>.el-card__body{
   margin: auto 60px;
   /*width: 400px;*/
+}
+</style>
+
+<style>
+.el-popover {
+  min-width: 10px;
+  padding: 10px 10px 10px 10px;
 }
 </style>

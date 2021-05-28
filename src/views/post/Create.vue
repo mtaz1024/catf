@@ -310,11 +310,12 @@ export default {
 
 <style scoped>
 .create-content{
-  margin: 20px auto;
+  margin: 15px auto;
   width: 1500px;
   padding: 0;
   border-radius: 15px;
-  border: 1px solid white;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
 }
 .left-part, .right-part{
   display: inline-block;
@@ -326,5 +327,12 @@ export default {
 }
 .right-part{
   float: right;
+}
+</style>
+
+<style>
+.el-popover {
+  min-width: 10px;
+  padding: 10px 10px 10px 10px;
 }
 </style>

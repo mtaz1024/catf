@@ -274,14 +274,21 @@ export default {
 <style scoped>
 .manage-container{
   width: 1500px;
-  margin: 20px auto 10px auto;
+  margin: 15px auto 10px auto;
   border-radius: 15px;
-  border: 1px solid white;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 5px #cac6c6;
 }
 .image-content :hover{
   cursor: pointer;
 }
 .hover-txt:hover{
   cursor: pointer;
+}
+</style>
+<style>
+.el-popover {
+  min-width: 10px;
+  padding: 10px 10px 10px 10px;
 }
 </style>
