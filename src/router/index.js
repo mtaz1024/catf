@@ -54,14 +54,6 @@ const routes = [
       requireAuth: true
     }
   },
-  {
-    path: '/user',
-    name: 'User',
-    component: () => import('../views/user/User'),
-    meta: {
-      requireAuth: true
-    }
-  },
     // POST
   {
     path: '/postManage',

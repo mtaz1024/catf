@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div id="create-wrapper">
 <!--    <Header></Header>-->
     <div class="create-container">
       <el-card class="create-content">

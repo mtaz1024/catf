@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="header-wrapper">
     <div class="header">
       <!-- LOGO -->
       <el-col :span="8">
@@ -49,7 +49,6 @@
         <div class="logout-button" @click="logout">Logout</div>
       </el-col>
     </div>
-
   </div>
 </template>
 
@@ -138,7 +137,7 @@ export default {
 </script>
 
 <style scoped>
-.header{
+.header-wrapper{
   margin: 0 auto;
   width: 1500px;
   height: 60px;
@@ -146,11 +145,15 @@ export default {
   border-top-left-radius: unset;
   border-top-right-radius: unset;
   border: 1px solid #eaeaea;
+  border-bottom:  none;
   box-shadow: 0 0 5px #cac6c6;
   border-top: none;
-}
->>>.el-card__body{
-  padding: 0;
+
+  background: white;
+  z-index: 999;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 .logout-button{
   height: 20px;
@@ -173,10 +176,4 @@ export default {
   font-weight: bold;
   background: #DCDFE6;
 }
-</style>
-<style>
-/*.el-popover{*/
-/*  min-width: 10px;*/
-/*  padding: 0;*/
-/*}*/
 </style>

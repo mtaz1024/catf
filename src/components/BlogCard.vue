@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="blog-card">
     <div  v-if="isMe">
       <div class="card-func">
         <el-popover
@@ -130,7 +130,7 @@ export default {
 </script>
 
 <style scoped>
-.card{
+.blog-card{
   width: 560px;
   text-align: left;
   padding: 20px 20px 4px;

@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div id="post-wrapper">
 <!--    <Header></Header>-->
     <div class="post-container">
       <div class="left-part">

@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div id="timeline-wrapper">
     <div class="timeline-content">
       <el-timeline>
         <!-- 新建 -->
@@ -94,13 +94,6 @@ export default {
 </script>
 
 <style scoped>
-.time-container{
-  /*width: 1500px;*/
-  /*margin: 20px auto;*/
-  /*padding: 0;*/
-  border-radius: 15px;
-  border: 1px solid white;
-}
 .timeline-content{
   width: 800px;
   margin: 30px auto;
