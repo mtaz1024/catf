@@ -5,7 +5,7 @@
       <div class="info-container">
         <el-avatar :src="user.avatar" :size="80"></el-avatar>
         <div class="username">{{ user.username }}</div>
-        <div class="info ">{{ user.info }}</div>
+        <div class="info" v-if="user.info !== null">{{ user.info }}</div>
 <!--        <el-divider></el-divider>-->
         <div class="basic-info">
           <div class=" basic-con">{{ user.livingCon|getString("living") }}</div>
@@ -15,8 +15,8 @@
           <div class=" basic-con">{{ user.catCon|getString("cat") }}</div>
         </div>
 <!--        <el-divider></el-divider>-->
-        <div class="join-date">{{ user.joinDate }} 加入</div>
-        <div class="address ">来自 {{ user.province | getAddress( user.city, user.district )}}</div>
+        <div class="join-date" v-if="user.joinDate!==null">{{ user.joinDate }} 加入</div>
+        <div class="address" v-if="user.province!== null">来自 {{ user.province | getAddress( user.city, user.district )}}</div>
         </div>
     </div>
     <!-- 其他信息 -->
@@ -56,7 +56,7 @@
             <div class="kind">
               <el-upload
                   class="upload-demo"
-                  limit="1"
+                  :limit=9
                   :action="uploadUrl"
                   :on-preview="handlePreview"
                   :on-remove="handleRemove"

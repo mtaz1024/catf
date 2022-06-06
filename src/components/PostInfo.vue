@@ -112,7 +112,7 @@ export default {
       MyPostForm: {},
       readMode: false,
       addressReadMode: false,
-      uploadUrl: "http://localhost:8081/api/post/image/upload",
+      uploadUrl: "http://localhost:8081/api/image/uploadImage",
       fileList: [],
       fileUrlList: [],
       typeSelect: duplicate.data().typeSelect,

@@ -342,6 +342,9 @@ export default {
   margin-right: 20px;
   border-right: #e8be3d 2px solid;
 }
+.poster-avatar:hover{
+  cursor: pointer;
+}
 .poster-info{
   display: inline-block;
   vertical-align: middle;

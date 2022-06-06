@@ -61,7 +61,7 @@
           <el-table-column label="标题"
                            prop="postTitle"
                            sortable
-                           width="200" @click="toPost()" class="post-title-co">
+                           width="200">
             <template slot-scope="scope" class="post-title-tem">
               <div class="hover-txt" style="font-weight: bold;" @click="toPost(scope.row.postId)">{{ scope.row.postTitle }}</div>
             </template>

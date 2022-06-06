@@ -61,14 +61,9 @@ export default {
       avatarUrl: this.$store.state.user.avatar,
       urlList: [
         {
-          value: '个人信息',
-          url: '/profile',
-          icon: 'el-icon-user-solid'
-        },
-        {
-          value: '申请信息',
-          url: '/applyManage',
-          icon: 'el-icon-s-order'
+          value: '个人主页',
+          url: '/zone',
+          icon: 'el-icon-camera-solid'
         },
         {
           value: '发布管理',
@@ -76,14 +71,19 @@ export default {
           icon: 'el-icon-s-tools'
         },
         {
+          value: '申请信息',
+          url: '/applyManage',
+          icon: 'el-icon-s-order'
+        },
+        {
           value: '领养中心',
           url: '/adoptManage',
           icon: 'el-icon-s-claim'
         },
         {
-          value: '个人主页',
-          url: '/zone',
-          icon: 'el-icon-camera-solid'
+          value: '个人信息',
+          url: '/profile',
+          icon: 'el-icon-user-solid'
         }
       ],
       searchWord: ''

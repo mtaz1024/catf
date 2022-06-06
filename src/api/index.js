@@ -7,6 +7,7 @@ import * as search from './modules/search'
 import * as adopt from './modules/adopt'
 import * as event from './modules/event'
 import * as blog from './modules/blog'
+import * as admin from './modules/admin'
 
 export default {
     user,
@@ -15,5 +16,6 @@ export default {
     search,
     adopt,
     event,
-    blog
+    blog,
+    admin
 }
